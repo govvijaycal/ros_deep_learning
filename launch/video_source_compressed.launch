@@ -1,0 +1,21 @@
+<launch>
+	<arg name="sensor_id" default="0"/>
+        <arg name="camera_name" default="jetson_cam_$(arg sensor_id)"/>
+	<arg name="input_width" default="0"/>
+	<arg name="input_height" default="0"/>
+	<arg name="input_codec" default="unknown"/>
+        <arg name="input_fps" default="30"/>
+	<arg name="input_loop" default="0"/>
+
+	<node pkg="ros_deep_learning" type="video_source" name="$(arg camera_name)" output="screen">
+		<param name="resource" value="csi://$(arg sensor_id)"/>
+		<param name="width" value="$(arg input_width)"/>
+		<param name="height" value="$(arg input_height)"/>
+		<param name="loop" value="$(arg input_loop)"/>
+		<param name="framerate" value="$(arg input_fps)"/>
+		<param name="codec" value="$(arg input_codec)"/>
+	</node>
+
+        <node pkg="image_transport" type="republish" name="repub_$(arg camera_name)" output="screen" args="raw in:=$(arg camera_name)/raw compressed out:=$(arg camera_name)/" />
+          
+</launch>

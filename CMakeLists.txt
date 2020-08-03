@@ -74,6 +74,9 @@ target_link_libraries(video_source ${catkin_LIBRARIES} jetson-inference)
 add_executable(video_output src/node_video_output.cpp ${common_src})
 target_link_libraries(video_output ${catkin_LIBRARIES} jetson-inference)
 
+add_executable(video_source_compressed src/node_video_source_compressed.cpp ${common_src})
+target_link_libraries(video_source_compressed ${catkin_LIBRARIES} jetson-inference)
+
 if( catkin_FOUND )
 	add_library(ros_deep_learning_nodelets src/nodelet_imagenet.cpp src/image_converter.cpp)
 	target_link_libraries(ros_deep_learning_nodelets ${catkin_LIBRARIES} jetson-inference)
